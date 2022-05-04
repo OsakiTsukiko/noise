@@ -15,7 +15,7 @@ margin_top = 10.0
 margin_right = 50.0
 margin_bottom = 24.0
 
-[node name="Label2" type="Label" parent="Main/CanvasLayer"]
+[node name="Info" type="Label" parent="Main/CanvasLayer"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
