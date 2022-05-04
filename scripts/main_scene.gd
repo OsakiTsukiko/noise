@@ -42,6 +42,13 @@ func _ready():
 		for y in range (0, 100):
 			var cube = point.instance();
 			var noise_lvl = noise.get_noise_2d(x, y) * MULT
+			if ( noise_lvl >= .6 ): cube.material_override = mat_snow
+			if ( noise_lvl >= .2 && noise_lvl < .6 ): cube.material_override = mat_stone
+			if ( noise_lvl >= -.5 && noise_lvl < .2 ): cube.material_override = mat_grass
+			if ( noise_lvl > -.6 && noise_lvl < -.5 ): cube.material_override = mat_sand
+			if ( noise_lvl <= -.6 ): 
+				noise_lvl = -.6
+				cube.material_override = mat_water
 			cube.set_translation(Vector3(x * SPACE, noise_lvl, y * SPACE))		
 			cont.add_child(cube)
 	pass
@@ -51,6 +58,10 @@ func _process(delta):
 	
 	if ( Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left") || Input.is_action_pressed("ui_up") || Input.is_action_pressed("ui_down") ):
 		var idx:int = 0
+		if (Input.is_action_pressed("ui_right")): idx_x += 1;
+		if (Input.is_action_pressed("ui_left")): idx_x -= 1;
+		if (Input.is_action_pressed("ui_up")): idx_y -= 1;
+		if (Input.is_action_pressed("ui_down")): idx_y += 1;
 #		noise.seed = floor(rand_range(-2147483648, 2147483648))
 		for x in range (idx_x, idx_x + 100):
 			for y in range (idx_y, idx_y + 100):
@@ -64,10 +75,4 @@ func _process(delta):
 				if ( noise_lvl <= -.6 ): 
 					noise_lvl = -.6
 					cube.material_override = mat_water
-					
 				cube.set_translation(Vector3((x - idx_x) * SPACE, noise_lvl, (y - idx_y) * SPACE))
-		
-		if (Input.is_action_pressed("ui_right")): idx_x += 1;
-		if (Input.is_action_pressed("ui_left")): idx_x -= 1;
-		if (Input.is_action_pressed("ui_up")): idx_y -= 1;
-		if (Input.is_action_pressed("ui_down")): idx_y += 1;
