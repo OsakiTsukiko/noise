@@ -27,7 +27,7 @@ margin_top = -41.0
 margin_right = 109.5
 margin_bottom = -10.0
 text = "USE WASD TO MOVE AROUND
-USE ZX CV BN TO TWEEK SETTINGS"
+USE ZX CV BN TO TWEAK SETTINGS"
 align = 1
 
 [node name="Container" type="Spatial" parent="Main"]
