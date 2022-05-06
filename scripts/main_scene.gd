@@ -16,6 +16,11 @@ var mat_sand = SpatialMaterial.new()
 var mat_grass = SpatialMaterial.new()
 var mat_stone = SpatialMaterial.new()
 var mat_snow = SpatialMaterial.new()
+var dodgerblue = Color.dodgerblue
+var khaki = Color.khaki
+var mediumseagreen = Color.mediumseagreen
+var slategray = Color.slategray
+var snow = Color.snow
 
 func _ready():
 	
@@ -27,11 +32,6 @@ func _ready():
 	noise.period = 150.0
 	noise.persistence = 20
 	
-	var dodgerblue = Color.dodgerblue
-	var khaki = Color.khaki
-	var mediumseagreen = Color.mediumseagreen
-	var slategray = Color.slategray
-	var snow = Color.snow
 	mat_water.albedo_color = dodgerblue
 	mat_sand.albedo_color = khaki
 	mat_grass.albedo_color = mediumseagreen
@@ -54,9 +54,31 @@ func _ready():
 	pass
 	
 func _process(delta):
-	label.text = String(delta)
+	label.text = "Delta: " + String(delta) + "\n"
+	label.text += "Octaves: " + String(noise.octaves) + "\n"
+	label.text += "Period: " + String(noise.period) + "\n"
+	label.text += "Persistance: " + String(noise.persistence) + "\n"
 	
-	if ( Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left") || Input.is_action_pressed("ui_up") || Input.is_action_pressed("ui_down") ):
+	if ( 
+		Input.is_action_pressed("ui_right") || 
+		Input.is_action_pressed("ui_left") || 
+		Input.is_action_pressed("ui_up") || 
+		Input.is_action_pressed("ui_down") ||
+		Input.is_action_just_pressed("oct_l") || 
+		Input.is_action_just_pressed("oct_r") || 
+		Input.is_action_just_pressed("prd_l") ||
+		Input.is_action_just_pressed("prd_r") ||
+		Input.is_action_just_pressed("prs_l") ||
+		Input.is_action_just_pressed("prs_r")     
+		):
+			
+		if ( Input.is_action_just_pressed("oct_l") ): noise.octaves -= 1
+		if ( Input.is_action_just_pressed("oct_r") ): noise.octaves += 1
+		if ( Input.is_action_just_pressed("prd_l") ): noise.period -= 10
+		if ( Input.is_action_just_pressed("prd_r") ): noise.period += 10
+		if ( Input.is_action_just_pressed("prs_l") ): noise.persistence -= 1
+		if ( Input.is_action_just_pressed("prs_r") ): noise.persistence += 1
+			
 		var idx:int = 0
 		if (Input.is_action_pressed("ui_right")): idx_x += 1;
 		if (Input.is_action_pressed("ui_left")): idx_x -= 1;
